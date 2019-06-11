@@ -187,11 +187,11 @@ impl Build for FileLoggerBuilder {
         let logger = match self.format {
             Format::Full => {
                 let format = FullFormat::new(decorator).use_custom_timestamp(timestamp);
-                self.build_with_drain(format.build())
+                self.build_with_drain(slog_envlogger::new(format.build()))
             }
             Format::Compact => {
                 let format = CompactFormat::new(decorator).use_custom_timestamp(timestamp);
-                self.build_with_drain(format.build())
+                self.build_with_drain(slog_envlogger::new(format.build()))
             }
         };
         Ok(logger)

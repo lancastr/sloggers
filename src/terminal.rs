@@ -96,7 +96,7 @@ impl TerminalLoggerBuilder {
         D::Err: Debug,
     {
         // async inside, level and key value filters outside for speed
-        let drain = Async::new(drain.fuse())
+        let drain = Async::new(slog_envlogger::new(drain.fuse()))
             .chan_size(self.channel_size)
             .overflow_strategy(self.overflow_strategy.to_async_type())
             .build()
